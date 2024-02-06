@@ -9,9 +9,9 @@ from API_work import APIWork
 class Main(QWidget):
     def __init__(self):
         super().__init__(windowTitle="Я карта")
-        self.showMaximized()
+        self.setGeometry(300, 300, 650, 450)
 
-        self.search = QLineEdit(self)
+        #self.search = QLineEdit(self)
         self.layers = [
             QRadioButton("Схема"),
             QRadioButton("Спутник"),
