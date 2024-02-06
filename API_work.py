@@ -6,7 +6,7 @@ import requests
 class APIWork:
     # def get_map(place, zoom):
     # def get_map(place):
-    def get_map():
+    def get_map(zoom):
 
         geocoder_request = "https://geocode-maps.yandex.ru/1.x"
 
@@ -33,8 +33,7 @@ class APIWork:
         size = 650, 450
         data = {
             "l": "map",
-            "z": 10,
-            #"z": zoom,
+            "z": zoom,
             "size": ",".join(map(str, size)),
             "ll": center.replace(" ", ","),
         }
