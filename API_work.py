@@ -30,11 +30,11 @@ class APIWork:
 
         maps_request = "https://static-maps.yandex.ru/1.x"
 
-        size = 600, 400
+        size = 650, 450
         data = {
             "l": "map",
             "z": 10,
-            # "z": zoom,
+            #"z": zoom,
             "size": ",".join(map(str, size)),
             "ll": center.replace(" ", ","),
         }
