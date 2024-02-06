@@ -4,17 +4,34 @@ import requests
 
 
 class APIWork:
-    # def get_map(place, zoom):
-    # def get_map(place):
-    def get_map(zoom):
+    def get_center(place):
+        geocoder_request = "https://geocode-maps.yandex.ru/1.x"
 
+        data = {
+            "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
+            "format": "json",
+            "geocode": place,
+        }
+
+        res = requests.get(geocoder_request, data).json()
+        center = (
+            res.get("response")
+            .get("GeoObjectCollection")
+            .get("featureMember")[0]
+            .get("GeoObject")
+            .get("Point")
+            .get("pos")
+        )
+
+        return place
+
+    def get_map(center, zoom, x, y):
         geocoder_request = "https://geocode-maps.yandex.ru/1.x"
 
         data = {
             "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
             "format": "json",
             "geocode": "Череповец",
-            # "geocode": place,
         }
 
         # try:
@@ -35,7 +52,7 @@ class APIWork:
             "l": "map",
             "z": zoom,
             "size": ",".join(map(str, size)),
-            "ll": center.replace(" ", ","),
+            "ll": f"{center[0] + x}{center[1] + y}",
         }
 
         res = requests.get(maps_request, data).content
@@ -46,8 +63,8 @@ class APIWork:
 
 if __name__ == "__main__":
     pygame.init()
-    img = pygame.image.load(APIWork.get_map())
-    screen = pygame.display.set_mode((700, 400))
+    img = pygame.image.load(APIWork.get_map(12))
+    screen = pygame.display.set_mode((650, 450))
     screen.blit(img, (0, 0))
     pygame.display.flip()
 
